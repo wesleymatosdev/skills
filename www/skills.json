@@ -20,7 +20,9 @@
     "description": "Generates LinkedIn carousel slides (HTML + PDF) with a custom dark galaxy theme \u2014 gradient text, symmetric top/bottom starfield brightness, and real headless-Chrome rendering instead of static mockups.",
     "authored": false,
     "customized": true,
-    "source": "PierreRtec/claude-skills-public"
+    "source": "PierreRtec/claude-skills-public",
+    "license": "MIT",
+    "attribution": "Original by PierreRtec (github.com/PierreRtec/claude-skills-public)"
   },
   {
     "id": "buffer",
@@ -29,6 +31,8 @@
     "description": "Schedule and publish social posts across connected channels via the official Buffer CLI \u2014 queue scheduling, dry-run validation before every live mutation, and idempotency-safe post management.",
     "authored": false,
     "customized": true,
-    "source": "danicat/skills"
+    "source": "danicat/skills",
+    "license": "Apache-2.0",
+    "attribution": "Original by Daniela Petruzalek (skills.danicat.dev/writing/buffer/)"
   }
 ]

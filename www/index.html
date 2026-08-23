@@ -150,7 +150,7 @@
       card.className = 'card';
       const provenance = s.authored
         ? 'Authored by Wesley'
-        : `Customized by Wesley (base: ${s.source || 'community'})`;
+        : `Customized by Wesley (base: ${s.source || 'community'}) · ${s.license || ''} · ${s.attribution || ''}`;
       card.innerHTML = `
         <div class="card-top">
           <h3>${s.title}</h3>
