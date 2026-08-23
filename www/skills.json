@@ -1,0 +1,34 @@
+[
+  {
+    "id": "learning-routing",
+    "title": "learning-routing",
+    "category": "Agent Workflow",
+    "description": "Classify learnings into memory, skills, or project records. Keeps global agent context compact by deciding whether feedback, an incident, or a solution belongs as durable user memory, a reusable skill, or repo-scoped project knowledge — without duplicating detail across all three.",
+    "authored": true
+  },
+  {
+    "id": "proof-bearing-verification",
+    "title": "proof-bearing-verification",
+    "category": "Engineering Standards",
+    "description": "Prove behavior before declaring engineering work complete. A green command, static review, or agent summary is not proof unless it exercises the claimed behavior at a real seam \u2014 mounted component, CLI invocation, API call, or end-to-end flow.",
+    "authored": true
+  },
+  {
+    "id": "carousel",
+    "title": "carousel",
+    "category": "Content & Social",
+    "description": "Generates LinkedIn carousel slides (HTML + PDF) with a custom dark galaxy theme \u2014 gradient text, symmetric top/bottom starfield brightness, and real headless-Chrome rendering instead of static mockups.",
+    "authored": false,
+    "customized": true,
+    "source": "PierreRtec/claude-skills-public"
+  },
+  {
+    "id": "buffer",
+    "title": "buffer",
+    "category": "Content & Social",
+    "description": "Schedule and publish social posts across connected channels via the official Buffer CLI \u2014 queue scheduling, dry-run validation before every live mutation, and idempotency-safe post management.",
+    "authored": false,
+    "customized": true,
+    "source": "danicat/skills"
+  }
+]

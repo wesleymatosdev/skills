@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skills — Wesley Matos</title>
+<meta name="description" content="A curated collection of AI agent skills I've authored or meaningfully customized.">
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; min-height: 100%;
+    background: #030209; color: #e8e6ff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  #starfield-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+  .page { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; padding: 72px 28px 120px; }
+
+  header.hero { text-align: center; margin-bottom: 56px; }
+  header.hero .eyebrow {
+    font-size: 14px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: #ffb6e6; margin-bottom: 18px;
+  }
+  header.hero h1 {
+    font-size: 56px; font-weight: 700; line-height: 1.1; margin: 0 0 20px;
+    background: linear-gradient(120deg, #ffb6e6, #b6c9ff, #c9ffe6);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  header.hero p.sub {
+    font-size: 19px; color: #a79fd4; max-width: 620px; margin: 0 auto; line-height: 1.55;
+  }
+
+  .search-row { margin: 40px 0 20px; }
+  .search-row input {
+    width: 100%; padding: 14px 18px; font-size: 16px;
+    background: rgba(20, 16, 40, 0.65); border: 1px solid rgba(184, 170, 255, 0.18);
+    border-radius: 12px; color: #e8e6ff; outline: none;
+    backdrop-filter: blur(6px);
+  }
+  .search-row input::placeholder { color: #6a6390; }
+  .search-row input:focus { border-color: rgba(255, 182, 230, 0.5); }
+
+  .filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 44px; }
+  .filter-pill {
+    padding: 8px 16px; border-radius: 999px; font-size: 14px; font-weight: 600;
+    background: rgba(20, 16, 40, 0.6); border: 1px solid rgba(184, 170, 255, 0.15);
+    color: #a79fd4; cursor: pointer; transition: all 0.15s ease;
+  }
+  .filter-pill:hover { border-color: rgba(255, 182, 230, 0.4); color: #e8e6ff; }
+  .filter-pill.active {
+    background: linear-gradient(120deg, rgba(255,182,230,0.18), rgba(182,201,255,0.18));
+    border-color: rgba(255, 182, 230, 0.5); color: #fff;
+  }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+  .card {
+    background: rgba(18, 14, 36, 0.62); border: 1px solid rgba(184, 170, 255, 0.14);
+    border-radius: 16px; padding: 22px; backdrop-filter: blur(8px);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .card:hover { border-color: rgba(255, 182, 230, 0.35); transform: translateY(-2px); }
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+  .card h3 {
+    margin: 0; font-size: 18px; font-family: ui-monospace, "SF Mono", monospace;
+    color: #f0eeff;
+  }
+  .badge {
+    font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px;
+    background: rgba(255, 182, 230, 0.12); color: #ffb6e6; white-space: nowrap;
+  }
+  .card p { font-size: 14.5px; line-height: 1.55; color: #b0a8d9; margin: 0; }
+  .card .provenance {
+    margin-top: 14px; font-size: 12.5px; color: #6a6390;
+    border-top: 1px solid rgba(184, 170, 255, 0.1); padding-top: 12px;
+  }
+
+  footer { text-align: center; margin-top: 80px; font-size: 13px; color: #6a6390; }
+  footer a { color: #a79fd4; text-decoration: none; }
+  footer a:hover { color: #ffb6e6; }
+
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <header class="hero">
+    <div class="eyebrow">wesleymatos.dev</div>
+    <h1>Skills</h1>
+    <p class="sub">
+      A curated set of AI agent skills I've written or meaningfully customized —
+      not a dump of everything installed, just the ones worth showing.
+    </p>
+  </header>
+
+  <div class="search-row">
+    <input type="text" id="search" placeholder="Search skills by name, category, or description…">
+  </div>
+
+  <div class="filters" id="filters"></div>
+
+  <div class="grid" id="grid"></div>
+
+  <footer>
+    Built with <a href="https://wesleymatos.dev">wesleymatos.dev</a> ·
+    <a href="https://github.com/wesleymatosdev" target="_blank" rel="noopener">GitHub</a>
+  </footer>
+</div>
+
+<script src="starfield.js"></script>
+<script>
+(async function () {
+  const grid = document.getElementById('grid');
+  const filtersEl = document.getElementById('filters');
+  const searchEl = document.getElementById('search');
+
+  const res = await fetch('skills.json');
+  const skills = await res.json();
+
+  const categories = ['All', ...Array.from(new Set(skills.map(s => s.category)))];
+  let activeCategory = 'All';
+  let query = '';
+
+  function renderFilters() {
+    filtersEl.innerHTML = '';
+    categories.forEach(cat => {
+      const count = cat === 'All' ? skills.length : skills.filter(s => s.category === cat).length;
+      const pill = document.createElement('button');
+      pill.className = 'filter-pill' + (cat === activeCategory ? ' active' : '');
+      pill.textContent = `${cat} (${count})`;
+      pill.onclick = () => { activeCategory = cat; renderFilters(); renderGrid(); };
+      filtersEl.appendChild(pill);
+    });
+  }
+
+  function renderGrid() {
+    grid.innerHTML = '';
+    const q = query.trim().toLowerCase();
+    const filtered = skills.filter(s => {
+      const matchesCategory = activeCategory === 'All' || s.category === activeCategory;
+      const matchesQuery = !q ||
+        s.title.toLowerCase().includes(q) ||
+        s.description.toLowerCase().includes(q) ||
+        s.category.toLowerCase().includes(q);
+      return matchesCategory && matchesQuery;
+    });
+
+    filtered.forEach(s => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const provenance = s.authored
+        ? 'Authored by Wesley'
+        : `Customized by Wesley (base: ${s.source || 'community'})`;
+      card.innerHTML = `
+        <div class="card-top">
+          <h3>${s.title}</h3>
+          <span class="badge">${s.category}</span>
+        </div>
+        <p>${s.description}</p>
+        <div class="provenance">${provenance}</div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  searchEl.addEventListener('input', (e) => { query = e.target.value; renderGrid(); });
+
+  renderFilters();
+  renderGrid();
+})();
+</script>
+</body>
+</html>
