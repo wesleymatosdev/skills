@@ -72,7 +72,37 @@
   .card .provenance {
     margin-top: 14px; font-size: 12.5px; color: #6a6390;
     border-top: 1px solid rgba(184, 170, 255, 0.1); padding-top: 12px;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
   }
+  .provenance .prov-text { flex: 1; }
+
+  .license-badge {
+    position: relative; display: inline-flex; align-items: center; justify-content: center;
+    width: 26px; height: 26px; border-radius: 8px; flex-shrink: 0;
+    background: rgba(182, 201, 255, 0.1); border: 1px solid rgba(184, 170, 255, 0.2);
+    color: #b6c9ff; text-decoration: none; transition: all 0.15s ease;
+  }
+  .license-badge:hover {
+    background: rgba(255, 182, 230, 0.14); border-color: rgba(255, 182, 230, 0.4);
+    color: #ffb6e6; transform: translateY(-1px);
+  }
+  .license-badge svg { width: 14px; height: 14px; }
+  .license-badge .tooltip {
+    position: absolute; bottom: calc(100% + 6px); right: 0;
+    background: #e8e6ff; border: none;
+    color: #14102a; font-size: 11.5px; font-weight: 600; white-space: nowrap;
+    padding: 5px 9px; border-radius: 6px; pointer-events: none;
+    opacity: 0; transform: scale(0.92); transform-origin: bottom right;
+    transition: opacity 0.08s ease, transform 0.08s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+    max-width: 260px; overflow: hidden; text-overflow: ellipsis;
+  }
+  .license-badge .tooltip::after {
+    content: ''; position: absolute; top: 100%; right: 10px;
+    width: 7px; height: 7px; background: #e8e6ff;
+    transform: rotate(45deg) translateY(-4px);
+  }
+  .license-badge:hover .tooltip { opacity: 1; transform: scale(1); }
 
   footer { text-align: center; margin-top: 80px; font-size: 13px; color: #6a6390; }
   footer a { color: #a79fd4; text-decoration: none; }
@@ -148,16 +178,37 @@
     filtered.forEach(s => {
       const card = document.createElement('div');
       card.className = 'card';
-      const provenance = s.authored
+
+      const LICENSE_URLS = {
+        'MIT': 'https://opensource.org/license/mit',
+        'Apache-2.0': 'https://www.apache.org/licenses/LICENSE-2.0',
+      };
+      const licenseIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3v18"/><path d="M5 7h14"/>
+        <path d="M5 7l-3 6a3 3 0 0 0 6 0z"/>
+        <path d="M19 7l-3 6a3 3 0 0 0 6 0z"/>
+      </svg>`;
+
+      const provText = s.authored
         ? 'Authored by Wesley'
-        : `Customized by Wesley (base: ${s.source || 'community'}) · ${s.license || ''} · ${s.attribution || ''}`;
+        : `Customized by Wesley (base: ${s.source || 'community'})`;
+
+      const licenseBadge = (!s.authored && s.license) ? `
+        <a class="license-badge" href="${LICENSE_URLS[s.license] || '#'}" target="_blank" rel="noopener">
+          ${licenseIcon}
+          <span class="tooltip">${s.license}${s.attribution ? ' · ' + s.attribution : ''}</span>
+        </a>` : '';
+
       card.innerHTML = `
         <div class="card-top">
           <h3>${s.title}</h3>
           <span class="badge">${s.category}</span>
         </div>
         <p>${s.description}</p>
-        <div class="provenance">${provenance}</div>
+        <div class="provenance">
+          <span class="prov-text">${provText}</span>
+          ${licenseBadge}
+        </div>
       `;
       grid.appendChild(card);
     });
