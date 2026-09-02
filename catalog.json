@@ -1,0 +1,20 @@
+{
+  "$schema": "https://agentskills.io/schema/v1/catalog.json",
+  "name": "wesleymatosdev/skills",
+  "title": "Wesley Matos — Agent Skills Catalog",
+  "description": "Personal agent-skill catalog: workflow and engineering-standards skills, authored and battle-tested in real agent loops.",
+  "url": "https://skills.wesleymatos.dev",
+  "repository": "https://github.com/wesleymatosdev/skills",
+  "license": "MIT",
+  "totalSkills": 3,
+  "updatedAt": "2026-09-02T06:32:23Z",
+  "categories": [
+    {"id":"workflow","name":"Agent Workflow","emoji":"🧭","description":"Skills for agent self-improvement loops: routing learnings, compacting context, closing the memory gap between sessions."},
+    {"id":"standards","name":"Engineering Standards","emoji":"📐","description":"Verification gates, evidence hierarchies, taste-tested quality standards for engineering work."}
+  ],
+  "items": [
+    {"name":"learning-routing","title":"learning-routing","description":"Classify learnings into memory, skills, or project records. Keeps global agent context compact by deciding whether feedback, an incident, or a solution belongs as durable user memory, a reusable skill, or repo-scoped project knowledge — without duplicating detail across all three.","category":"workflow","version":"0.1.0","license":"MIT","path":"workflow/learning-routing/SKILL.md","url":"https://skills.wesleymatos.dev/workflow/learning-routing/SKILL.md"},
+    {"name":"ce-pickup","title":"ce-pickup","description":"Extract ce-handoff/v1 documents from past Hermes sessions with a local Ollama model, then resume work without paying frontier-model context costs.","category":"workflow","version":"0.1.0","license":"MIT","path":"workflow/ce-pickup/SKILL.md","url":"https://skills.wesleymatos.dev/workflow/ce-pickup/SKILL.md"},
+    {"name":"proof-bearing-verification","title":"proof-bearing-verification","description":"Prove behavior before declaring engineering work complete. A green command, static review, or agent summary is not proof unless it exercises the claimed behavior at a real seam — mounted component, CLI invocation, API call, or end-to-end flow.","category":"standards","version":"0.1.0","license":"MIT","path":"standards/proof-bearing-verification/SKILL.md","url":"https://skills.wesleymatos.dev/standards/proof-bearing-verification/SKILL.md"}
+  ]
+}

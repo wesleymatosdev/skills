@@ -1,0 +1,15 @@
+# wesleymatosdev/skills
+
+> Personal agent-skill catalog. Authored and curated by Wesley Matos.
+
+Install any skill via the Skills CLI:
+  npx skills add wesleymatosdev/skills --skill <name> -y
+
+## Categories
+- 🧭 **Agent Workflow** (`workflow/`) — Skills for agent self-improvement loops: routing learnings, compacting context, closing the memory gap between sessions.
+- 📐 **Engineering Standards** (`standards/`) — Verification gates, evidence hierarchies, taste-tested quality standards for engineering work.
+
+## Skills
+- [`learning-routing`](https://skills.wesleymatos.dev/workflow/learning-routing/SKILL.md) (workflow, v0.1.0, MIT): Classify learnings into memory, skills, or project records.
+- [`ce-pickup`](https://skills.wesleymatos.dev/workflow/ce-pickup/SKILL.md) (workflow, v0.1.0, MIT): Extract ce-handoff/v1 documents from past Hermes sessions with a local Ollama model, then resume work without paying frontier-model context costs.
+- [`proof-bearing-verification`](https://skills.wesleymatos.dev/standards/proof-bearing-verification/SKILL.md) (standards, v0.1.0, MIT): Prove behavior before declaring engineering work complete.

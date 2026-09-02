@@ -1,0 +1,9 @@
+{
+  "updatedAt": "2026-09-02T06:32:23Z",
+  "totalSkills": 3,
+  "skills": {
+    "learning-routing": {"v":"0.1.0","h":"cc05abce77b9","c":"workflow","u":"https://skills.wesleymatos.dev/workflow/learning-routing/SKILL.md"},
+    "ce-pickup": {"v":"0.1.0","h":"81f2738e558d","c":"workflow","u":"https://skills.wesleymatos.dev/workflow/ce-pickup/SKILL.md"},
+    "proof-bearing-verification": {"v":"0.1.0","h":"e6a6a9eeeff8","c":"standards","u":"https://skills.wesleymatos.dev/standards/proof-bearing-verification/SKILL.md"}
+  }
+}

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Skills — Wesley Matos</title>
-<meta name="description" content="A curated collection of AI agent skills I've authored or meaningfully customized.">
+<meta name="description" content="AI agent skills authored by Wesley Matos — workflow and engineering-standards skills built in real agent loops.">
 <style>
   * { box-sizing: border-box; }
   html, body {
@@ -118,8 +118,10 @@
     <div class="eyebrow">wesleymatos.dev</div>
     <h1>Skills</h1>
     <p class="sub">
-      A curated set of AI agent skills I've written or meaningfully customized —
-      not a dump of everything installed, just the ones worth showing.
+      AI agent skills I've authored and battle-tested in real loops.
+    </p>
+    <p style="margin-top:14px;font-size:13px;color:#6a6390;font-family:ui-monospace,'SF Mono',monospace;">
+      npx skills add wesleymatosdev/skills -y
     </p>
   </header>
 
@@ -179,25 +181,8 @@
       const card = document.createElement('div');
       card.className = 'card';
 
-      const LICENSE_URLS = {
-        'MIT': 'https://opensource.org/license/mit',
-        'Apache-2.0': 'https://www.apache.org/licenses/LICENSE-2.0',
-      };
-      const licenseIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 3v18"/><path d="M5 7h14"/>
-        <path d="M5 7l-3 6a3 3 0 0 0 6 0z"/>
-        <path d="M19 7l-3 6a3 3 0 0 0 6 0z"/>
-      </svg>`;
-
-      const provText = s.authored
-        ? 'Authored by Wesley'
-        : `Customized by Wesley (base: ${s.source || 'community'})`;
-
-      const licenseBadge = (!s.authored && s.license) ? `
-        <a class="license-badge" href="${LICENSE_URLS[s.license] || '#'}" target="_blank" rel="noopener">
-          ${licenseIcon}
-          <span class="tooltip">${s.license}${s.attribution ? ' · ' + s.attribution : ''}</span>
-        </a>` : '';
+      const skillUrl = `https://skills.wesleymatos.dev/${s.path}`;
+      const repoUrl = `https://github.com/wesleymatosdev/skills/blob/main/${s.path}`;
 
       card.innerHTML = `
         <div class="card-top">
@@ -206,8 +191,7 @@
         </div>
         <p>${s.description}</p>
         <div class="provenance">
-          <span class="prov-text">${provText}</span>
-          ${licenseBadge}
+          <span class="prov-text">v${s.version} · ${s.license} · <a href="${skillUrl}" target="_blank" rel="noopener" style="color:#a79fd4;text-decoration:none;border-bottom:1px solid rgba(167,159,212,0.3);">SKILL.md</a> · <a href="${repoUrl}" target="_blank" rel="noopener" style="color:#a79fd4;text-decoration:none;border-bottom:1px solid rgba(167,159,212,0.3);">source</a></span>
         </div>
       `;
       grid.appendChild(card);

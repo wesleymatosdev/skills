@@ -1,34 +1,57 @@
-# skills.wesleymatos.dev
+# wesleymatosdev/skills
 
-Public showcase of my personal AI agent skills — genuinely authored or
-meaningfully customized by me, not a dump of every installed skill.
+Personal agent-skill catalog. Authored and battle-tested in real agent loops.
 
-Same visual identity as wesleymatos.dev: dark galaxy/starfield background,
-warp-in intro, same gradient palette. Built as a static site (no SSG needed
-— this isn't a blog, it's a curated card index).
+Browse at <https://skills.wesleymatos.dev>.
 
-## Status
+---
 
-🚧 **Private draft.** Reviewing structure and content before making public
-or pointing the subdomain at it.
+## Installation
 
-## Structure
+Install any skill directly from this repository with the [Skills CLI](https://github.com/nagyv/skills-cli):
 
-```
-www/
-  index.html      — page shell + starfield (reuses starfield.js from social-assets)
-  skills.json      — curated skill data (title, category, description, source)
-  starfield.js     — shared component, copied from wesleymatos.dev/blog
+```bash
+# A specific skill
+npx skills add wesleymatosdev/skills --skill proof-bearing-verification -y
+
+# Everything
+npx skills add wesleymatosdev/skills -y
 ```
 
-## Curated skills (draft list, pending review)
+Or fetch a single file directly:
 
-1. `learning-routing` — classify learnings into memory/skills/project records
-2. `proof-bearing-verification` — prove behavior before declaring work complete
-3. `carousel` — LinkedIn carousel generator, customized with galaxy palette
-4. `buffer` — social post scheduling via Buffer CLI
-5. `social-copy` — editorial/anti-slop audit workflow for social copy
+```bash
+curl -fsSL https://skills.wesleymatos.dev/standards/proof-bearing-verification/SKILL.md
+```
 
-Excluded from public list: personal-data skills (e.g. writing-voice
-profiles), unmodified third-party installs, and internal Hermes-specific
-tooling skills.
+---
+
+## Catalog
+
+### 🧭 Agent Workflow (`workflow/`)
+
+* **[`learning-routing`](workflow/learning-routing/SKILL.md)** — Decide whether a learning belongs as durable user memory, a reusable skill, or a project-record, so global context stays compact and learnings compound instead of colliding.
+* **[`ce-pickup`](workflow/ce-pickup/SKILL.md)** — Extract `ce-handoff/v1` documents from past Hermes sessions with a local Ollama model, then resume work without paying frontier-model context costs.
+
+### 📐 Engineering Standards (`standards/`)
+
+* **[`proof-bearing-verification`](standards/proof-bearing-verification/SKILL.md)** — A green command, static review, or agent self-report is not proof. Require evidence that exercises the claimed behavior at a real seam before calling work done.
+
+---
+
+## Repository layout
+
+```
+catalog.json     agentskills.io schema catalog
+versions.json    semver + sha256 content hash per skill
+llms.txt         LLM-readable flat index
+LICENSE          MIT
+<category>/<skill>/SKILL.md
+www/             skills.wesleymatos.dev single-page app
+```
+
+---
+
+## License
+
+MIT © Wesley Matos. See [LICENSE](LICENSE).
