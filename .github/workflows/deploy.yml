@@ -27,10 +27,25 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
+      - name: Assemble Pages artifact
+        run: |
+          set -euo pipefail
+          rm -rf _site
+          mkdir -p _site
+          cp -R www/. _site/
+          # Ship the advertised skill-doc trees at their catalog paths
+          # (skills.json/catalog.json/llms.txt/versions.json link to
+          # https://skills.wesleymatos.dev/<category>/<skill>/SKILL.md).
+          cp -R workflow _site/workflow
+          cp -R standards _site/standards
+          cp -f llms.txt _site/llms.txt
+          cp -f catalog.json _site/catalog.json
+          cp -f versions.json _site/versions.json
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: www
+          path: _site
 
       - name: Deploy to GitHub Pages
         id: deployment
