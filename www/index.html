@@ -110,49 +110,9 @@
 
   .hidden { display: none !important; }
 
-  /* wm-nav:begin — shared wesleymatos.dev nav; sync via oss-site scripts/sync-nav.py */
-  :root {
-    --wm-nav-ink: rgba(178, 203, 246, 0.8);
-    --wm-nav-accent: #ffb6e6;
-    --wm-nav-hairline: rgba(184, 170, 255, 0.22);
-    --wm-nav-accent-hairline: rgba(255, 182, 230, 0.5);
-  }
-  .site-nav {
-    position: fixed; top: 22px; right: 26px; z-index: 3;
-    display: flex; gap: 20px;
-    font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
-  }
-  .site-nav a {
-    color: var(--wm-nav-ink, rgba(178, 203, 246, 0.8));
-    text-decoration: none;
-    text-shadow: 1px 1px 2px rgba(130, 73, 169, 0.6);
-    padding-bottom: 3px;
-    border-bottom: 1px solid var(--wm-nav-hairline, rgba(184, 170, 255, 0.22));
-    transition: color 0.15s ease, border-color 0.15s ease;
-  }
-  .site-nav a:hover {
-    color: var(--wm-nav-accent, #ffb6e6);
-    border-bottom-color: var(--wm-nav-accent-hairline, rgba(255, 182, 230, 0.5));
-  }
-  .site-nav a[aria-current="page"] {
-    color: var(--wm-nav-accent, #ffb6e6);
-    border-bottom-color: var(--wm-nav-accent-hairline, rgba(255, 182, 230, 0.5));
-  }
-  @media (prefers-reduced-motion: reduce) { .site-nav a { transition: none; } }
-  /* wm-nav:end */
 </style>
 </head>
 <body>
-
-<!-- wm-nav:begin — shared wesleymatos.dev nav; edit via oss-site scripts/sync-nav.py only -->
-<nav class="site-nav" aria-label="Sites">
-  <a href="https://wesleymatos.dev">Home</a>
-  <a href="https://blog.wesleymatos.dev">Blog</a>
-  <a href="https://oss.wesleymatos.dev">Open Source</a>
-  <a href="https://skills.wesleymatos.dev" aria-current="page">Skills</a>
-  <a href="https://demo.wesleymatos.dev">Demos</a>
-</nav>
-<!-- wm-nav:end -->
 
 <div class="page">
   <header class="hero">
@@ -245,5 +205,6 @@
   renderGrid();
 })();
 </script>
+<script src="https://wesleymatos.dev/wm-nav.js" data-current="Skills"></script>
 </body>
 </html>
