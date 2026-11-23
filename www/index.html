@@ -5,125 +5,182 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Skills — Wesley Matos</title>
 <meta name="description" content="AI agent skills authored by Wesley Matos — workflow and engineering-standards skills built in real agent loops.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://art.wmatos.dev">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://art.wmatos.dev/shared/canopy.css">
 <style>
+  :root {
+    --paper:#ffffff; --ink:#1c2a19; --ink-2:#4d5b47; --ink-3:#6f7d69;
+    --line:rgba(28,42,25,.16); --leaf:#3f6b2e; --sage:#7a9a66;
+    --serif:"Fraunces","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
   * { box-sizing: border-box; }
   html, body {
     margin: 0; padding: 0; min-height: 100%;
-    background: #030209; color: #e8e6ff;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--paper); color: var(--ink);
+    font-family: var(--sans); -webkit-font-smoothing: antialiased;
   }
-  #starfield-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 
-  .page { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; padding: 72px 28px 120px; }
-
-  header.hero { text-align: center; margin-bottom: 56px; }
-  header.hero .eyebrow {
-    font-size: 14px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-    color: #ffb6e6; margin-bottom: 18px;
+  /* Canopy header — structural essentials kept local so the layout holds
+     even before the shared package responds; canopy.css layers polish on top. */
+  .canopy-header {
+    position: relative; overflow: hidden;
+    height: clamp(240px, 38vh, 420px);
+    background: var(--paper);
   }
+  .canopy-header canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .canopy-top {
+    position: absolute; z-index: 2; top: 0; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 22px clamp(18px, 4vw, 36px); pointer-events: none;
+  }
+  .canopy-top a, .canopy-top nav { pointer-events: auto; }
+
+  .chip {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 3px;
+    box-shadow: 0 8px 24px -16px rgba(28,42,25,.4);
+  }
+  .brand {
+    font-family: var(--serif); font-size: 20px; font-weight: 600; color: var(--ink);
+    text-decoration: none; letter-spacing: -.01em; padding: 10px 14px 11px;
+  }
+  .brand small {
+    display: block; font-family: var(--mono); font-size: 10px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--ink-3); margin-top: 4px; font-weight: 400;
+  }
+  .links {
+    display: flex; align-items: center; gap: 10px; font-family: var(--mono);
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase; padding: 8px 10px;
+  }
+  .links a { color: var(--ink-2); text-decoration: none; padding: 8px 10px; border-radius: 2px; transition: color .2s, background .2s; }
+  .links a:hover, .links a:focus-visible { color: var(--ink); background: rgba(28,42,25,.06); }
+  .links a.cta { color: var(--paper); background: var(--ink); border-radius: 2px; margin-left: 6px; }
+  .links a.cta:hover { background: var(--leaf); }
+  a:focus-visible { outline: 2px solid var(--leaf); outline-offset: 2px; }
+
+  .page { max-width: 980px; margin: 0 auto; padding: 48px 28px 110px; }
+
+  header.hero { text-align: center; margin-bottom: 48px; }
   header.hero h1 {
-    font-size: 56px; font-weight: 700; line-height: 1.1; margin: 0 0 20px;
-    background: linear-gradient(120deg, #ffb6e6, #b6c9ff, #c9ffe6);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-family: var(--serif);
+    font-size: clamp(38px, 6vw, 56px); font-weight: 600; line-height: 1.1;
+    margin: 0 0 16px; color: var(--ink); letter-spacing: -.01em;
   }
   header.hero p.sub {
-    font-size: 19px; color: #a79fd4; max-width: 620px; margin: 0 auto; line-height: 1.55;
+    font-size: 19px; color: var(--ink-2); max-width: 620px; margin: 0 auto; line-height: 1.55;
+  }
+  header.hero .install {
+    display: inline-block; margin-top: 18px; font-family: var(--mono);
+    font-size: 12.5px; color: var(--ink-2); padding: 10px 14px;
   }
 
-  .search-row { margin: 40px 0 20px; }
+  .search-row { margin: 36px 0 20px; }
   .search-row input {
     width: 100%; padding: 14px 18px; font-size: 16px;
-    background: rgba(20, 16, 40, 0.65); border: 1px solid rgba(184, 170, 255, 0.18);
-    border-radius: 12px; color: #e8e6ff; outline: none;
-    backdrop-filter: blur(6px);
+    background: var(--paper); border: 1px solid var(--line); border-radius: 3px;
+    color: var(--ink); outline: none;
+    box-shadow: 0 8px 24px -16px rgba(28,42,25,.4);
   }
-  .search-row input::placeholder { color: #6a6390; }
-  .search-row input:focus { border-color: rgba(255, 182, 230, 0.5); }
+  .search-row input::placeholder { color: var(--ink-3); }
+  .search-row input:focus { border-color: var(--ink-2); }
 
-  .filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 44px; }
+  .filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
   .filter-pill {
-    padding: 8px 16px; border-radius: 999px; font-size: 14px; font-weight: 600;
-    background: rgba(20, 16, 40, 0.6); border: 1px solid rgba(184, 170, 255, 0.15);
-    color: #a79fd4; cursor: pointer; transition: all 0.15s ease;
+    padding: 8px 14px; border-radius: 3px; font-family: var(--mono);
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    background: var(--paper); border: 1px solid var(--line);
+    color: var(--ink-2); cursor: pointer; transition: all 0.15s ease;
   }
-  .filter-pill:hover { border-color: rgba(255, 182, 230, 0.4); color: #e8e6ff; }
-  .filter-pill.active {
-    background: linear-gradient(120deg, rgba(255,182,230,0.18), rgba(182,201,255,0.18));
-    border-color: rgba(255, 182, 230, 0.5); color: #fff;
-  }
+  .filter-pill:hover { color: var(--ink); border-color: var(--ink-3); }
+  .filter-pill.active { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
   .card {
-    background: rgba(18, 14, 36, 0.62); border: 1px solid rgba(184, 170, 255, 0.14);
-    border-radius: 16px; padding: 22px; backdrop-filter: blur(8px);
-    transition: border-color 0.15s ease, transform 0.15s ease;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 3px;
+    padding: 22px; transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
-  .card:hover { border-color: rgba(255, 182, 230, 0.35); transform: translateY(-2px); }
+  .card:hover { border-color: rgba(28,42,25,.34); box-shadow: 0 8px 24px -16px rgba(28,42,25,.4); }
   .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
   .card h3 {
-    margin: 0; font-size: 18px; font-family: ui-monospace, "SF Mono", monospace;
-    color: #f0eeff;
+    margin: 0; font-size: 15px; font-family: var(--mono); font-weight: 600;
+    color: var(--ink);
   }
   .badge {
-    font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px;
-    background: rgba(255, 182, 230, 0.12); color: #ffb6e6; white-space: nowrap;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
+    padding: 4px 9px; border-radius: 3px; border: 1px solid var(--line);
+    background: var(--paper); color: var(--ink-3); white-space: nowrap;
   }
-  .card p { font-size: 14.5px; line-height: 1.55; color: #b0a8d9; margin: 0; }
+  .card p { font-size: 14.5px; line-height: 1.55; color: var(--ink-2); margin: 0; }
   .card .provenance {
-    margin-top: 14px; font-size: 12.5px; color: #6a6390;
-    border-top: 1px solid rgba(184, 170, 255, 0.1); padding-top: 12px;
+    margin-top: 14px; font-size: 12.5px; color: var(--ink-3);
+    border-top: 1px solid var(--line); padding-top: 12px;
     display: flex; align-items: center; justify-content: space-between; gap: 10px;
   }
   .provenance .prov-text { flex: 1; }
+  .provenance a { color: var(--ink-2); text-decoration: none; border-bottom: 1px solid var(--line); }
+  .provenance a:hover { color: var(--ink); border-bottom-color: var(--ink-2); }
 
   .license-badge {
     position: relative; display: inline-flex; align-items: center; justify-content: center;
-    width: 26px; height: 26px; border-radius: 8px; flex-shrink: 0;
-    background: rgba(182, 201, 255, 0.1); border: 1px solid rgba(184, 170, 255, 0.2);
-    color: #b6c9ff; text-decoration: none; transition: all 0.15s ease;
+    width: 26px; height: 26px; border-radius: 3px; flex-shrink: 0;
+    background: var(--paper); border: 1px solid var(--line);
+    color: var(--ink-2); text-decoration: none; transition: all 0.15s ease;
   }
-  .license-badge:hover {
-    background: rgba(255, 182, 230, 0.14); border-color: rgba(255, 182, 230, 0.4);
-    color: #ffb6e6; transform: translateY(-1px);
-  }
+  .license-badge:hover { border-color: var(--ink-2); color: var(--ink); transform: translateY(-1px); }
   .license-badge svg { width: 14px; height: 14px; }
   .license-badge .tooltip {
     position: absolute; bottom: calc(100% + 6px); right: 0;
-    background: #e8e6ff; border: none;
-    color: #14102a; font-size: 11.5px; font-weight: 600; white-space: nowrap;
-    padding: 5px 9px; border-radius: 6px; pointer-events: none;
+    background: var(--ink); border: none;
+    color: var(--paper); font-size: 11.5px; font-weight: 600; white-space: nowrap;
+    padding: 5px 9px; border-radius: 3px; pointer-events: none;
     opacity: 0; transform: scale(0.92); transform-origin: bottom right;
     transition: opacity 0.08s ease, transform 0.08s ease;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+    box-shadow: 0 8px 24px -16px rgba(28,42,25,.4);
     max-width: 260px; overflow: hidden; text-overflow: ellipsis;
   }
   .license-badge .tooltip::after {
     content: ''; position: absolute; top: 100%; right: 10px;
-    width: 7px; height: 7px; background: #e8e6ff;
+    width: 7px; height: 7px; background: var(--ink);
     transform: rotate(45deg) translateY(-4px);
   }
   .license-badge:hover .tooltip { opacity: 1; transform: scale(1); }
 
-  footer { text-align: center; margin-top: 80px; font-size: 13px; color: #6a6390; }
-  footer a { color: #a79fd4; text-decoration: none; }
-  footer a:hover { color: #ffb6e6; }
+  footer { text-align: center; margin-top: 72px; font-size: 13px; color: var(--ink-3); }
+  footer a { color: var(--ink-2); text-decoration: none; }
+  footer a:hover { color: var(--ink); }
 
   .hidden { display: none !important; }
 
+  @media (max-width: 640px) {
+    .canopy-top { flex-direction: column; gap: 10px; padding: 16px 18px; }
+    .links { flex-wrap: wrap; }
+  }
 </style>
 </head>
 <body>
 
+<header class="canopy-header" data-canopy-intro>
+  <div class="canopy-top">
+    <a class="brand chip" href="https://wmatos.dev">Wesley Matos<small>Skills</small></a>
+    <nav class="links chip" aria-label="Site">
+      <a href="https://wmatos.dev/#timeline">About</a>
+      <a href="https://github.com/wesleymatosdev" target="_blank" rel="noopener">GitHub</a>
+      <a class="cta" href="mailto:wesleymatosdev@gmail.com">Email me</a>
+    </nav>
+  </div>
+</header>
+
 <div class="page">
   <header class="hero">
-    <div class="eyebrow">wesleymatos.dev</div>
     <h1>Skills</h1>
     <p class="sub">
       AI agent skills I've authored and battle-tested in real loops.
     </p>
-    <p style="margin-top:14px;font-size:13px;color:#6a6390;font-family:ui-monospace,'SF Mono',monospace;">
-      npx skills add wesleymatosdev/skills -y
-    </p>
+    <p class="install chip">npx skills add wesleymatosdev/skills -y</p>
   </header>
 
   <div class="search-row">
@@ -135,12 +192,11 @@
   <div class="grid" id="grid"></div>
 
   <footer>
-    Built with <a href="https://wesleymatos.dev">wesleymatos.dev</a> ·
+    Built with <a href="https://wmatos.dev">wmatos.dev</a> ·
     <a href="https://github.com/wesleymatosdev" target="_blank" rel="noopener">GitHub</a>
   </footer>
 </div>
 
-<script src="starfield.js"></script>
 <script>
 (async function () {
   const grid = document.getElementById('grid');
@@ -192,7 +248,7 @@
         </div>
         <p>${s.description}</p>
         <div class="provenance">
-          <span class="prov-text">v${s.version} · ${s.license} · <a href="${skillUrl}" target="_blank" rel="noopener" style="color:#a79fd4;text-decoration:none;border-bottom:1px solid rgba(167,159,212,0.3);">SKILL.md</a> · <a href="${repoUrl}" target="_blank" rel="noopener" style="color:#a79fd4;text-decoration:none;border-bottom:1px solid rgba(167,159,212,0.3);">source</a></span>
+          <span class="prov-text">v${s.version} · ${s.license} · <a href="${skillUrl}" target="_blank" rel="noopener">SKILL.md</a> · <a href="${repoUrl}" target="_blank" rel="noopener">source</a></span>
         </div>
       `;
       grid.appendChild(card);
@@ -205,6 +261,7 @@
   renderGrid();
 })();
 </script>
-<script src="https://wesleymatos.dev/wm-nav.js" data-current="Skills"></script>
+<script defer src="https://art.wmatos.dev/shared/canopy-data.js"></script>
+<script defer src="https://art.wmatos.dev/shared/canopy-intro.js"></script>
 </body>
 </html>
